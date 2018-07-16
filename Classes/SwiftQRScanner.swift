@@ -3,7 +3,7 @@
 //  SwiftQRScanner
 //
 //  Created by Vinod Jagtap on 12/5/17.
-//
+//  Modified by Hassan Shahbazi on 15/7/18
 
 import UIKit
 import CoreGraphics
@@ -32,6 +32,12 @@ public class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputO
     public var cancelImage: UIImage?
     public var flashOnImage: UIImage?
     public var flashOffImage: UIImage?
+    
+    //Control view texts
+    public var hint: String = "Align QR code within frame to scan"
+    public var cancel: String = "Cancel"
+    public var hintFonts: UIFont = UIFont.systemFont(ofSize: 18.0)
+    public var hintColor: UIColor = UIColor.white
     
     //Default Properties
     let bottomSpace: CGFloat = 60.0
@@ -176,12 +182,13 @@ public class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputO
         view.layer.insertSublayer(maskLayer, above: videoPreviewLayer)
         
         let noteText = CATextLayer()
-        noteText.fontSize = 18.0
-        noteText.string = "Align QR code within frame to scan"
+        noteText.fontSize = hintFonts.pointSize
+        noteText.font = hintFonts
+        noteText.string = hint
         noteText.alignmentMode = kCAAlignmentCenter
         noteText.contentsScale = UIScreen.main.scale
-        noteText.frame = CGRect(x: spaceFactor, y: rect.origin.y + rect.size.height + 30, width: view.frame.size.width - (2.0 * spaceFactor), height: 22)
-        noteText.foregroundColor = UIColor.white.cgColor
+        noteText.frame = CGRect(x: spaceFactor, y: rect.origin.y + rect.size.height + 30, width: view.frame.size.width - (2.0 * spaceFactor), height: 42)
+        noteText.foregroundColor = hintColor.cgColor
         view.layer.insertSublayer(noteText, above: maskLayer)
     }
     
@@ -198,7 +205,7 @@ public class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputO
             cancelButton.setImage(cancelImg, for: .normal)
         } else {
             cancelButton.frame = CGRect(x: view.frame.width/2 - btnWidthWhenCancelImageNil/2, y: view.frame.height - height, width: btnWidthWhenCancelImageNil, height: height)
-            cancelButton.setTitle("Cancel", for: .normal)
+            cancelButton.setTitle(cancel, for: .normal)
         }
         cancelButton.contentMode = .scaleAspectFit
         cancelButton.addTarget(self, action: #selector(dismissVC), for:.touchUpInside)
