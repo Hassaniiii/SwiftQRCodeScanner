@@ -48,7 +48,7 @@ public class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputO
     ///This is for adding delay so user will get sufficient time for align QR within frame
     let delayCount: Int = 15
     
-
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nil, bundle: nil)
     }
@@ -74,11 +74,6 @@ public class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputO
         delCnt = 0
         prepareQRScannerView(self.view)
         startScanningQRCode()
-    }
-    
-    override public func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     //MARK: - Lazy initialization of properties
@@ -162,7 +157,7 @@ public class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputO
         let rect = CGRect.init(origin: CGPoint.init(x: self.view.frame.midX - width/2, y: self.view.frame.midY - (width+bottomSpace)/2), size: CGSize.init(width: width, height: height))
         self.squareView = SquareView(frame: rect)
         if let squareView = squareView {
-            self.view.backgroundColor = UIColor(white: 0.0, alpha: 0.5)
+            self.view.backgroundColor = UIColor(white: 0.0, alpha: 1.0)
             squareView.autoresizingMask = UIViewAutoresizing(rawValue: UInt(0.0))
             self.view.addSubview(squareView)
             
@@ -178,7 +173,6 @@ public class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputO
         path.append(UIBezierPath(rect: view.bounds))
         maskLayer.path = path.cgPath
         maskLayer.fillRule = kCAFillRuleEvenOdd
-        
         view.layer.insertSublayer(maskLayer, above: videoPreviewLayer)
         
         let noteText = CATextLayer()
